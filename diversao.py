@@ -42,23 +42,11 @@ vidas = 3
 raio_cobra = 12
 x = 400
 y = 300
+
+########### cobra #############
 def cobrinha():
-	global x, y, corpo, angulo, vidas
-	key = pygame.key.get_pressed()
-	if key[pygame.K_RIGHT]:
-		corpo = pygame.transform.rotate(cabeca, 0)
-		x += 3
-	elif key[pygame.K_LEFT]:
-		corpo = pygame.transform.rotate(cabeca, 180)
-		x -= 3
-	elif key[pygame.K_UP]:
-		corpo = pygame.transform.rotate(cabeca, 90)
-		y -= 3
-	elif key[pygame.K_DOWN]:
-		corpo = pygame.transform.rotate(cabeca, 270)
-		y += 3
+	global x, y, corpo, angulo
 	tela.blit(corpo, (x - raio_cobra, y - raio_cobra))
-##################
 
 ###### Comida da Cobra ########
 raio_cCobra = 4
@@ -86,13 +74,38 @@ def porCima():
 counter = True
 clock = pygame.time.Clock()
 
+x_modificado = 0
+y_modificado = 0
+
 while counter:
 	clock.tick(60)
 	fps = clock.get_fps()
 	pygame.display.set_caption("Shazam Caraí II ## FPS: %.2f" %fps)
+
+############ Capiturando todos os eventos durante o execução ##############
 	for event in pygame.event.get():
-		if event.type == QUIT:
-			counter = False
+		if event.type == pygame.KEYDOWN:
+			if event.key == pygame.K_RIGHT:
+				corpo = pygame.transform.rotate(cabeca, 0)
+				x_modificado = 3
+				y_modificado = 0
+			elif event.key == pygame.K_LEFT:
+				corpo = pygame.transform.rotate(cabeca, 180)
+				x_modificado = -3
+				y_modificado = 0
+			elif event.key == pygame.K_UP:
+				corpo = pygame.transform.rotate(cabeca, 90)
+				y_modificado = - 3
+				x_modificado = 0
+			elif event.key == pygame.K_DOWN:
+				corpo = pygame.transform.rotate(cabeca, 270)
+				y_modificado = 3
+				x_modificado = 0
+	x += x_modificado
+	y += y_modificado
+			 
+	if event.type == QUIT:
+		counter = False
 	
 	tela.blit(gramado, (0, 0))
 	tela.blit(aoRedor, (0, 0))
