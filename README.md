@@ -7,6 +7,7 @@ Programação 1/Laboratório de Programação 1.
 
 
 #Integrantes:
+  José Junio da Silva Calú 
 
   Monaly Vital Correia
 
