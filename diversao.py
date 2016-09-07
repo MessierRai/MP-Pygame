@@ -2,20 +2,15 @@
 
 import pygame, sys, os, random, math, time
 from pygame.locals import *
-from pygame.time import *
-from pygame.display import *
 
 pygame.init()
 
 ##### Cores ######
 preto = (0, 0, 0)
-branco = (255, 255, 255)
-rosa = (255, 179, 255)
 ##################
 
 dimensao = (800, 600)
 tela = pygame.display.set_mode(dimensao)
-tela.fill(preto)
 
 ######### Objetos ###########
 gramado = pygame.image.load(os.path.join("images", "fundocobrinha.jpg"))
@@ -42,7 +37,6 @@ vidas = 3
 raio_cobra = 12
 x = 400
 y = 300
-
 def cobrinha():
 	global x, y, corpo
 	tela.blit(corpo, (x - raio_cobra, y - raio_cobra))
@@ -86,7 +80,7 @@ def loop_jogo():
 		fps = clock.get_fps()
 		pygame.display.set_caption("Shazam Caraí II ## FPS: %.2f" %fps)
 
-		#### Capiturando todos os eventos durante a execução ####
+		#### Capturando todos os eventos durante a execução ####
 		for event in pygame.event.get():
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_RIGHT:
