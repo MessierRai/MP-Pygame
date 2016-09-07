@@ -77,7 +77,7 @@ clock = pygame.time.Clock()
 x_modificado = 0
 y_modificado = 0
 
-################### Loop principal do jogo ###########################
+########################### Loop principal do jogo ##################################
 def loop_jogo():
 	global x, y, x2, x2, x_modificado, y_modificado, vidas, pontos, distancia, corpo, raio_cCobra, raio_cobra, counter, nova_comida, clock
 
