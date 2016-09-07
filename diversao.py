@@ -36,7 +36,6 @@ def distancia(x, y, x2, y2):
 	return distancia
 ##########################
 
-##### Cobra ######
 pontos = 0
 vidas = 3
 raio_cobra = 12
@@ -45,7 +44,7 @@ y = 300
 
 ########### cobra #############
 def cobrinha():
-	global x, y, corpo, angulo
+	global x, y, corpo
 	tela.blit(corpo, (x - raio_cobra, y - raio_cobra))
 
 ###### Comida da Cobra ########
@@ -82,7 +81,7 @@ while counter:
 	fps = clock.get_fps()
 	pygame.display.set_caption("Shazam Caraí II ## FPS: %.2f" %fps)
 
-############ Capiturando todos os eventos durante o execução ##############
+############ Capiturando todos os eventos durante a execução ##############
 	for event in pygame.event.get():
 		if event.type == pygame.KEYDOWN:
 			if event.key == pygame.K_RIGHT:
