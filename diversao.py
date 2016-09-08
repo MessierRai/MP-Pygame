@@ -170,8 +170,6 @@ def loop_jogo():
 		comida()
 		cobrinha()
 		status_de_jogo()
-		
-		pygame.display.update()
 
 		clock.tick(60)
 
@@ -198,7 +196,8 @@ def loop_jogo():
 
 			fim_de_jogo = True
 			mensagem_de_tela()
-
+		
+		pygame.display.flip()
 ###########################################################################################################
 
 loop_jogo()
