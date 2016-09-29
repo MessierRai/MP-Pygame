@@ -154,13 +154,13 @@ def loop_jogo():
 		lista_cobra.append(cabeca_cobra)
 
 		if len(lista_cobra) > comprimento_cobra:
-            		del lista_cobra[0]
+            del lista_cobra[0]
 
 		###############################################
 
 		for todo_seguimento in lista_cobra[:-1]:
 			if todo_seguimento == cabeca_cobra:
-                		fim_de_jogo = True
+                fim_de_jogo = True
 		
 		
 
@@ -175,11 +175,10 @@ def loop_jogo():
 
 		fps = clock.get_fps()
 
-		pygame.display.set_caption("Shazam Caraí II ## FPS: %.2f" %fps)
+		pygame.display.set_caption("Snake ## FPS: %.2f" %fps)
 
 		########## Se bater nas paredes ##################
 		if (x >= 751 or x <= 44) or (y >= 553 or y <= 42):
-
 			vidas -= 1
 			x = 400
 			y = 300
@@ -190,7 +189,7 @@ def loop_jogo():
 
 			nova_comida = True
 			pontos += 1
-			comprimento_cobra += 1
+			comprimento_cobra += 7
 
 		if vidas == 0:
 
