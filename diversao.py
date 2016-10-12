@@ -11,8 +11,6 @@ vermelho = (255, 0, 0)
 branco = (255,255,255)
 ##################
 
-##################
-
 dimensao = [800, 600]
 tela = pygame.display.set_mode(dimensao)
 
