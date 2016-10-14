@@ -42,7 +42,7 @@ raio_corpo = 12
 x = 400
 y = 300
 
-def cobrinha(): 
+def cobrinha():
 	global x, y, corpo, direcao, x_modificado, y_modificado, incremento, decremento
 
 	tela.blit(corpo, (x - raio_cobra, y - raio_cobra))
@@ -63,7 +63,7 @@ def cobrinha():
 		corpo = pygame.transform.rotate(cabeca, 270)
 		y_modificado = incremento
 		x_modificado = 0
-	
+
 	for XnY in lista_cobra:
 		tela.blit(corpito, (XnY[0] - raio_corpo, XnY[1] - raio_corpo))
 
@@ -76,14 +76,31 @@ raio_cCobra = 4
 nova_comida = True
 x2 = 0
 y2 = 0
+vel = 10
+vell = 10
 
 def comida():
-	global x2, y2, comp, nova_comida
+	count = 0
+	global x2, y2, comp, nova_comida, vel, vell
 	if nova_comida:
 		x2 = random.randint(47, 747)
 		y2 = random.randint(56, 548)
 		nova_comida = False
 	tela.blit(comp, (x2 - raio_cCobra, y2 - raio_cCobra))
+
+	x2 += vel
+	y2 += vell
+
+	if (x2 >= 751):
+		vel = -2
+	if(x2 <= 44):
+		vel = 2
+	if (y2 >= 553):
+		vell = -2
+	if (y2 <= 42):
+		vell = 2
+
+
 ################################
 
 ########## InformaÃ§Ãµes de status #############
@@ -105,13 +122,13 @@ def mensagem_de_tela():
 
 ######################################## Loop principal ###################################################
 def loop_jogo():
-	global x, y, x2, x2, vidas, pontos, distancia, corpo, nova_comida, lista_cobra, direcao, incremento, decremento
-	
+	global x, y, x2, y2, vel, vell, vidas, pontos, distancia, corpo, nova_comida, lista_cobra, direcao, incremento, decremento
+
 	incremento = 3
 	decremento = -3
-	
+
 	direcao = "direita"
-	
+
 	x_modificado = 0
 	y_modificado = 0
 	comprimento_cobra = 1
@@ -127,10 +144,10 @@ def loop_jogo():
 		clock.tick(60)
 		fps = clock.get_fps()
 		pygame.display.set_caption("Snake ## FPS: %.2f" %fps)
-		
+
 		while fim_de_jogo == True:
 			mensagem_de_tela()
-			pygame.display.update()
+			pygame.display.flip()
 			for event in pygame.event.get():
 				if event.type == pygame.KEYDOWN:
 					if event.key == pygame.K_q:
@@ -141,6 +158,8 @@ def loop_jogo():
 						y = 300
 						incremento = 3
 						decremento = -3
+						vel = 10
+						vell = 10
 						vidas = 3
 						pontos = 0
 						loop_jogo()
@@ -148,21 +167,21 @@ def loop_jogo():
 		#### Capturando todos os eventos durante a execuÃ§Ã£o ####
 		for event in pygame.event.get():
 			if event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_RIGHT:
+				if event.key == pygame.K_RIGHT and direcao != "esquerda":
 					direcao = "direita"
 
-				elif event.key == pygame.K_LEFT:
+				elif event.key == pygame.K_LEFT and direcao != "direita":
 					direcao = "esquerda"
 
-				elif event.key == pygame.K_UP:
+				elif event.key == pygame.K_UP and direcao != "baixo":
 					direcao = "cima"
 
-				elif event.key == pygame.K_DOWN:
+				elif event.key == pygame.K_DOWN and direcao != "cima" :
 					direcao = "baixo"
-		
+
 			if event.type == pygame.QUIT:
 				sair_do_jogo = True
-		
+
 		####### posiÃ§Ã£o da cabeÃ§a da cobra ###########
 
 		cabeca_cobra = []
@@ -178,8 +197,6 @@ def loop_jogo():
 		for todo_segmento in lista_cobra[:-1]:
 			if todo_segmento == cabeca_cobra:
 				fim_de_jogo = True
-		
-		
 
 		tela.blit(gramado, (0, 0))
 		tela.blit(paredes, (0, 0))
@@ -187,10 +204,6 @@ def loop_jogo():
 		comida()
 		cobrinha()
 		status_de_jogo()
-		
-		pygame.display.update()
-
-		
 
 		########## Se bater nas paredes ##################
 		if (x >= 751 or x <= 44) or (y >= 553 or y <= 42):
@@ -198,6 +211,8 @@ def loop_jogo():
 			direcao = "direita"
 			x = 400
 			y = 300
+		# if direcao == "direita" and ((x2 >= 751 or x2 <= 44) or (y2 >= 553 or y2 <= 42)):
+			# x2 -=3
 
 		##################################################
 
@@ -228,11 +243,11 @@ def loop_jogo():
 
 		if vidas == 0:
 			fim_de_jogo = True
-		
+
 		pygame.display.flip()
-		
+
 	pygame.quit()
-		
+
 	quit()
 ###########################################################################################################
 
