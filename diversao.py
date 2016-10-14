@@ -34,6 +34,7 @@ def distancia(x, y, x2, y2):
 ##########################
 
 ########### cobra #############
+
 pontos = 0
 vidas = 3
 raio_cobra = 12
@@ -42,10 +43,32 @@ x = 400
 y = 300
 
 def cobrinha(): 
-	global x, y, corpo
+	global x, y, corpo, direcao, x_modificado, y_modificado, incremento, decremento
+
 	tela.blit(corpo, (x - raio_cobra, y - raio_cobra))
+
+	if direcao == "direita":
+		corpo = pygame.transform.rotate(cabeca, 0)
+		x_modificado = incremento
+		y_modificado = 0
+	elif direcao == "esquerda":
+		corpo = pygame.transform.rotate(cabeca, 180)
+		x_modificado = decremento
+		y_modificado = 0
+	elif direcao == "cima":
+		corpo = pygame.transform.rotate(cabeca, 90)
+		y_modificado = decremento
+		x_modificado = 0
+	elif direcao == "baixo":
+		corpo = pygame.transform.rotate(cabeca, 270)
+		y_modificado = incremento
+		x_modificado = 0
+	
 	for XnY in lista_cobra:
 		tela.blit(corpito, (XnY[0] - raio_corpo, XnY[1] - raio_corpo))
+
+	x += x_modificado
+	y += y_modificado
 ################################
 
 ###### Comida da Cobra #########
@@ -82,12 +105,15 @@ def mensagem_de_tela():
 
 ######################################## Loop principal ###################################################
 def loop_jogo():
-	global x, y, x2, x2, vidas, pontos, distancia, corpo, raio_cCobra, raio_cobra, counter, nova_comida, lista_cobra
+	global x, y, x2, x2, vidas, pontos, distancia, corpo, nova_comida, lista_cobra, direcao, incremento, decremento
+	
+	incremento = 3
+	decremento = -3
+	
+	direcao = "direita"
 	
 	x_modificado = 0
 	y_modificado = 0
-	incremento = 3
-	decremento = -3
 	comprimento_cobra = 1
 	lista_cobra = []
 
@@ -111,8 +137,11 @@ def loop_jogo():
 						sair_do_jogo = True
 						fim_de_jogo = False
 					if event.key == pygame.K_c:
+						x = 400
+						y = 300
 						incremento = 3
 						decremento = -3
+						vidas = 3
 						pontos = 0
 						loop_jogo()
 
@@ -120,27 +149,19 @@ def loop_jogo():
 		for event in pygame.event.get():
 			if event.type == pygame.KEYDOWN:
 				if event.key == pygame.K_RIGHT:
-					corpo = pygame.transform.rotate(cabeca, 0)
-					x_modificado = incremento
-					y_modificado = 0
-				elif event.key == pygame.K_LEFT:
-					corpo = pygame.transform.rotate(cabeca, 180)
-					x_modificado = decremento
-					y_modificado = 0
-				elif event.key == pygame.K_UP:
-					corpo = pygame.transform.rotate(cabeca, 90)
-					y_modificado = decremento
-					x_modificado = 0
-				elif event.key == pygame.K_DOWN:
-					corpo = pygame.transform.rotate(cabeca, 270)
-					y_modificado = incremento
-					x_modificado = 0
-		
-			if event.type == QUIT:
-				sair_do_jogo = True
+					direcao = "direita"
 
-		x += x_modificado
-		y += y_modificado
+				elif event.key == pygame.K_LEFT:
+					direcao = "esquerda"
+
+				elif event.key == pygame.K_UP:
+					direcao = "cima"
+
+				elif event.key == pygame.K_DOWN:
+					direcao = "baixo"
+		
+			if event.type == pygame.QUIT:
+				sair_do_jogo = True
 		
 		####### posiÃ§Ã£o da cabeÃ§a da cobra ###########
 
@@ -166,12 +187,15 @@ def loop_jogo():
 		comida()
 		cobrinha()
 		status_de_jogo()
+		
+		pygame.display.update()
 
 		
 
 		########## Se bater nas paredes ##################
 		if (x >= 751 or x <= 44) or (y >= 553 or y <= 42):
 			vidas -= 1
+			direcao = "direita"
 			x = 400
 			y = 300
 
@@ -182,19 +206,19 @@ def loop_jogo():
 			pontos += 1
 			comprimento_cobra += 7
 		############ Incremento de velocidade, tendo a ponuaÃ§Ã£o como base ############
-		if pontos >= 8:
+		if pontos >= 8 and pontos < 16:
 			incremento = 6
 			decremento = -6
-		elif pontos >= 16:
+		elif pontos >= 16 and pontos < 24:
 			incremento = 9
 			decremento = -9
-		elif pontos >= 24:
+		elif pontos >= 24 and pontos < 32:
 			incremento = 12
 			decremento = -12
-		elif pontos >= 32:
+		elif pontos >= 32 and pontos < 40:
 			incremento = 15
 			decremento = -15
-		elif pontos >= 40:
+		elif pontos >= 40 and pontos < 50:
 			incremento = 18
 			decremento = -18
 		elif pontos >= 50:
@@ -204,9 +228,12 @@ def loop_jogo():
 
 		if vidas == 0:
 			fim_de_jogo = True
-			mensagem_de_tela()
 		
 		pygame.display.flip()
+		
+	pygame.quit()
+		
+	quit()
 ###########################################################################################################
 
 loop_jogo()
