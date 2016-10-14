@@ -88,6 +88,7 @@ def comida():
 		nova_comida = False
 	tela.blit(comp, (x2 - raio_cCobra, y2 - raio_cCobra))
 
+   ######## movimento da comida ##########
 	x2 += vel
 	y2 += vell
 
@@ -99,7 +100,7 @@ def comida():
 		vell = -2
 	if (y2 <= 42):
 		vell = 2
-
+   ########################################
 
 ################################
 
@@ -156,6 +157,7 @@ def loop_jogo():
 					if event.key == pygame.K_c:
 						x = 400
 						y = 300
+						comprimento = 7
 						incremento = 3
 						decremento = -3
 						vel = 10
@@ -167,16 +169,16 @@ def loop_jogo():
 		#### Capturando todos os eventos durante a execuÃ§Ã£o ####
 		for event in pygame.event.get():
 			if event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_RIGHT and direcao != "esquerda":
+				if event.key == pygame.K_RIGHT:
 					direcao = "direita"
 
-				elif event.key == pygame.K_LEFT and direcao != "direita":
+				elif event.key == pygame.K_LEFT:
 					direcao = "esquerda"
 
-				elif event.key == pygame.K_UP and direcao != "baixo":
+				elif event.key == pygame.K_UP:
 					direcao = "cima"
 
-				elif event.key == pygame.K_DOWN and direcao != "cima" :
+				elif event.key == pygame.K_DOWN:
 					direcao = "baixo"
 
 			if event.type == pygame.QUIT:
