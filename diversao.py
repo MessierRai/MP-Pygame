@@ -157,7 +157,7 @@ def loop_jogo():
 					if event.key == pygame.K_c:
 						x = 400
 						y = 300
-						comprimento = 7
+						comprimento_cobra = 7
 						incremento = 3
 						decremento = -3
 						vel = 10
@@ -210,6 +210,7 @@ def loop_jogo():
 		########## Se bater nas paredes ##################
 		if (x >= 751 or x <= 44) or (y >= 553 or y <= 42):
 			vidas -= 1
+			comprimento_cobra = 7
 			direcao = "direita"
 			x = 400
 			y = 300
