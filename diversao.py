@@ -88,6 +88,7 @@ def comida():
 		nova_comida = False
 	tela.blit(comp, (x2 - raio_cCobra, y2 - raio_cCobra))
 
+   ######## movimento da comida ##########
 	x2 += vel
 	y2 += vell
 
@@ -99,7 +100,7 @@ def comida():
 		vell = -2
 	if (y2 <= 42):
 		vell = 2
-
+   ########################################
 
 def comidaNormal():
 	global x2, y2, comp, nova_comida
@@ -164,6 +165,7 @@ def loop_jogo():
 					if event.key == pygame.K_c:
 						x = 400
 						y = 300
+						comprimento_cobra = 1
 						incremento = 3
 						decremento = -3
 						vel = 10
@@ -175,16 +177,16 @@ def loop_jogo():
 		#### Capturando todos os eventos durante a execuÃ§Ã£o ####
 		for event in pygame.event.get():
 			if event.type == pygame.KEYDOWN:
-				if event.key == pygame.K_RIGHT and direcao != "esquerda":
+				if event.key == pygame.K_RIGHT:
 					direcao = "direita"
 
-				elif event.key == pygame.K_LEFT and direcao != "direita":
+				elif event.key == pygame.K_LEFT:
 					direcao = "esquerda"
 
-				elif event.key == pygame.K_UP and direcao != "baixo":
+				elif event.key == pygame.K_UP:
 					direcao = "cima"
 
-				elif event.key == pygame.K_DOWN and direcao != "cima" :
+				elif event.key == pygame.K_DOWN:
 					direcao = "baixo"
 
 			if event.type == pygame.QUIT:
@@ -219,13 +221,10 @@ def loop_jogo():
 		########## Se bater nas paredes ##################
 		if (x >= 751 or x <= 44) or (y >= 553 or y <= 42):
 			vidas -= 1
+			comprimento_cobra = 1
 			direcao = "direita"
 			x = 400
 			y = 300
-		# if direcao == "direita" and ((x2 >= 751 or x2 <= 44) or (y2 >= 553 or y2 <= 42)):
-			# x2 -=3
-
-		##################################################
 
 		if distancia(x, y, x2, y2) < (raio_cobra + raio_cCobra):
 			nova_comida = True
