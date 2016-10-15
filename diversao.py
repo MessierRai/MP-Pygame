@@ -101,6 +101,14 @@ def comida():
 		vell = 2
 
 
+def comidaNormal():
+	global x2, y2, comp, nova_comida
+	if nova_comida:
+		x2 = random.randint(47, 747)
+		y2 = random.randint(56, 548)
+		nova_comida = False
+	tela.blit(comp, (x2 - raio_cCobra, y2 - raio_cCobra))
+
 ################################
 
 ########## InformaÃ§Ãµes de status #############
@@ -201,7 +209,10 @@ def loop_jogo():
 		tela.blit(gramado, (0, 0))
 		tela.blit(paredes, (0, 0))
 
-		comida()
+		if pontos > 15:
+			comida()
+		else:
+			comidaNormal()
 		cobrinha()
 		status_de_jogo()
 
