@@ -19,6 +19,8 @@ gramado = pygame.image.load(os.path.join("images", "fundocobrinha.jpg"))
 paredes = pygame.image.load(os.path.join("images", "paredes.png"))
 comp = pygame.image.load(os.path.join("images", "comidacobra.png"))
 comp = pygame.transform.scale(comp, (18, 20))
+comp2 = pygame.image.load(os.path.join("images", "comidacobra2.png"))
+comp2 = pygame.transform.scale(comp2, (25, 24))
 cabeca = pygame.image.load(os.path.join("images", "cabecadacobra.png"))
 corpito = pygame.image.load(os.path.join("images", "corpodacobra.png"))
 corpo = pygame.transform.rotate(cabeca, 0)
@@ -71,8 +73,8 @@ def cobrinha():
 	y += y_modificado
 ################################
 
-###### Comida da Cobra #########
-raio_cCobra = 4
+###### Comidas da Cobra: Se mexe e não se mexe, respectivamente #########
+raio_cCobra = 6
 nova_comida = True
 x2 = 0
 y2 = 0
@@ -110,7 +112,22 @@ def comidaNormal():
 		nova_comida = False
 	tela.blit(comp, (x2 - raio_cCobra, y2 - raio_cCobra))
 
-################################
+
+########## Adicional: Veneno  -> Tira uma vida #################
+nova_comida2 = True
+raio_cCobra2 = 4
+x3 = 0
+y3 = 0
+
+def veneno():
+	global x3, y3, comp2, nova_comida2
+	if nova_comida2:
+		x3 = random.randint(47, 747)
+		y3 = random.randint(56, 548)
+		nova_comida2 = False
+	tela.blit(comp2, (x3 - raio_cCobra2, y3 - raio_cCobra))
+
+#################################################################
 
 ########## InformaÃ§Ãµes de status #############
 def status_de_jogo():
@@ -131,7 +148,7 @@ def mensagem_de_tela():
 
 ######################################## Loop principal ###################################################
 def loop_jogo():
-	global x, y, x2, y2, vel, vell, vidas, pontos, distancia, corpo, nova_comida, lista_cobra, direcao, incremento, decremento
+	global x, y, x2, y2, x3, y3, vel, vell, vidas, pontos, distancia, corpo, nova_comida, nova_comida2, lista_cobra, direcao, incremento, decremento
 
 	incremento = 3
 	decremento = -3
@@ -215,6 +232,7 @@ def loop_jogo():
 			comida()
 		else:
 			comidaNormal()
+		veneno()
 		cobrinha()
 		status_de_jogo()
 
@@ -230,6 +248,11 @@ def loop_jogo():
 			nova_comida = True
 			pontos += 1
 			comprimento_cobra += 7
+
+		if distancia(x, y, x3, y3) < (raio_cobra + raio_cCobra2):
+			nova_comida2 = True
+			vidas -= 1
+
 		############ Incremento de velocidade, tendo a ponuaÃ§Ã£o como base ############
 		if pontos >= 8 and pontos < 16:
 			incremento = 6
