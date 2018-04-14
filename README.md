@@ -6,7 +6,7 @@ Projeto de game baseado no jogo "Snake Classic".
 Programação 1/Laboratório de Programação 1.
 
 
-#Integrantes:
+# Integrantes:
   José Junio da Silva Calú 
 
   Monaly Vital Correia
